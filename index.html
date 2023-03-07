@@ -62,7 +62,7 @@
         const Editor = toastui.Editor;
 
         function katexPlugin() {
-            const toHTMLRenders = {
+            const toHTMLRenderers = {
                 katex(node) {
                     console.log("HI");
 
@@ -78,10 +78,10 @@
                 }
             };
 
-            return { toHTMLRenders };
+            return { toHTMLRenderers };
         }
 
-        const viewer1MarkdownSource = "로딩중...";
+        const viewerMarkdownSource = "로딩중...";
 
         const viewer = Editor.factory({
             el: document.querySelector("#viewer"),
@@ -101,7 +101,7 @@
             fetch(pageNo + ".md")
                 .then(response => response.text())
                 .then(text => {
-                    viewer.setMarkdonw(text);
+                    viewer.setMarkdown(text);
 
                     window.scrollTo({
                         top: 0,

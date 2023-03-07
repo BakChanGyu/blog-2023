@@ -59,60 +59,56 @@
     </ul>
     
     <script>
-        console.clear();
-
         const Editor = toastui.Editor;
 
         function katexPlugin() {
-        const toHTMLRenders = {
-            katex(node) {
-            console.log("HI");
+            const toHTMLRenders = {
+                katex(node) {
+                    console.log("HI");
 
-            let html = katex.renderToString(node.literal, {
-                throwOnError: false
-            });
+                    let html = katex.renderToString(node.literal, {
+                        throwOnError: false
+                    });
 
-            return [
-                { type: "openTag", tagName: "div", outerNewLine: true },
-                { type: "html", content: html },
-                { type: "closeTag", tagName: "div", outerNewLine: true }
-            ];
-            }
-        };
-        return { toHTMLRenders };
+                    return [
+                        { type: "openTag", tagName: "div", outerNewLine: true },
+                        { type: "html", content: html },
+                        { type: "closeTag", tagName: "div", outerNewLine: true }
+                    ];
+                }
+            };
+
+            return { toHTMLRenders };
         }
 
         const viewer1MarkdownSource = "로딩중...";
 
-        console.log("viewerMarkdownSource : " + viewerMarkdownSource);
-
         const viewer = Editor.factory({
-        el: document.querySelector("#viewer"),
-        viewer: true,
-        initialValue: viewerMarkdownSource,
-        plugins: [
-            [toastui.Editor.plugin.codeSyntaxHighlight, { highlighter: Prism }],
-            katexPlugin,
-            [
-            toastui.Editor.plugin.uml,
-            { rendererURL: "http://www.plantuml.com/plantuml/svg/" }
+            el: document.querySelector("#viewer"),
+            viewer: true,
+            initialValue: viewerMarkdownSource,
+            plugins: [
+                [toastui.Editor.plugin.codeSyntaxHighlight, { highlighter: Prism }],
+                katexPlugin,
+                [
+                    toastui.Editor.plugin.uml,
+                    { rendererURL: "http://www.plantuml.com/plantuml/svg/" }
+                ]   
             ]
-        ]
-    });
+        });
 
-    function showPage(pageNo) {
-        fetch(pageNo + ".md")
-            .then(response => response.text())
-            .then(text => {
-                viewer.setMarkdonw(text);
+        function showPage(pageNo) {
+            fetch(pageNo + ".md")
+                .then(response => response.text())
+                .then(text => {
+                    viewer.setMarkdonw(text);
 
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-            });
-    }
-
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                })
+        }
 
     </script>
 </body>
